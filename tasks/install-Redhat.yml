@@ -1,0 +1,28 @@
+---
+# Redhat specific ps::install tag directives
+
+- name: Add EPEL repository (RedHat based systems)
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Add perfSONAR repository (RedHat based systems)
+  yum:
+    name: http://software.internet2.edu/rpms/el7/x86_64/main/RPMS/perfSONAR-repo-0.8-1.noarch.rpm
+    state: present
+
+- name: Use perfSONAR staging or nightly repository (RedHat based systems)
+  yum:
+    name: perfSONAR-repo-{{ perfsonar_release }}
+    state: present
+  when:
+    - perfsonar_release == "staging" or perfsonar_release == "nightly"
+
+# Make sure we have the latest upgrades installed
+- name: Install system updates (RedHat based systems)
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+  ignore_errors: True
+  when: perfsonar_autoupdate == true
