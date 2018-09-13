@@ -18,6 +18,9 @@ perfsonar_optional_packages:
 # Disable ssh root access
 perfsonar_disable_root_ssh: True
 
+# Autoupdate base OS
+perfsonar_autoupdate: False
+
 # psconfig related setup
 # A list of remotes you want to use on your perfsonar-testpoint node
 perfsonar_psconfig_remote_remotes: []
