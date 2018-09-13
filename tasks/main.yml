@@ -69,7 +69,6 @@
   with_items: "{{ perfsonar_psconfig_remote_remotes }}"
   tags: [ 'ps::config' ]
 
-
 #####
 # Verifying part: ps::running tag
 #####
@@ -86,7 +85,9 @@
 
 # Run a few useful perfSONAR commands
 - name: Run pscheduler troubleshoot locally
-  command: pscheduler troubleshoot
+  command: pscheduler troubleshoot "{{ item }}"
+  with_items: "{{ perfsonar_troubleshoot }}"
   tags: [ 'ps::running' ]
   changed_when: False
+  when: perfsonar_troubleshoot is defined and perfsonar_troubleshoot != none
 
