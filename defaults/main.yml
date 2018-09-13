@@ -15,18 +15,6 @@ perfsonar_optional_packages:
   - perfsonar-toolkit-sysctl
   - perfsonar-toolkit-systemenv-testpoint
 
-# List of NTP servers you want to use on your perfSONAR hosts
-# If empty, any already configured NTP server will not be changed
-# If you also install the 'perfsonar-toolkit-ntp' package below, the perfSONAR
-# provided script will choose the closest NTP servers for you.
-perfsonar_ntp_servers: []
-#perfsonar_ntp_servers: 
-#  - { name: "NTP 1", hostname: ntp.switch.ch }
-#  - { name: "NTP 2", hostname: 0.ch.pool.ntp.org }
-#  - { name: "NTP 3", hostname: 1.ch.pool.ntp.org }
-#  - { name: "NTP 4", hostname: 2.ch.pool.ntp.org }
-#  - { name: "NTP 5", hostname: 3.ch.pool.ntp.org }
-
 # Disable ssh root access
 perfsonar_disable_root_ssh: True
 

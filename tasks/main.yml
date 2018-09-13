@@ -88,13 +88,12 @@
     state: present
   tags: [ 'ps::install' ]
 
-# Install the optional perfsonar packages, except for perfsonar-toolkit-ntp if we have a list of NTP servers
+# Install the optional perfsonar packages
 - name: Install perfSONAR optional packages
   package:
     name: "{{ item }}"
     state: present
   tags: [ 'ps::install' ]
-  when: item != "perfsonar-toolkit-ntp" or not perfsonar_ntp_servers
   with_items: "{{ perfsonar_optional_packages }}"
 
 #####
@@ -107,18 +106,6 @@
     state: 'absent'
     regexp: '127\.0\..*[\s]+{{ ansible_fqdn }}[\s]+.*'
   tags: [ 'ps::config' ]
-
-# NTP is essential for good measurements
-- name: Configure additional NTP servers
-  blockinfile:
-    path: /etc/ntp.conf
-    block: |
-      server {{ item.hostname }} iburst
-    marker: "# {mark} ansible-role-perfsonar {{ item.name }}"
-  tags: [ 'ps::config' ]
-  with_items: "{{ perfsonar_ntp_servers }}"
-  notify:
-    - restart ntp
 
 - name: Disable ssh root access
   lineinfile:
